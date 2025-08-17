@@ -13,7 +13,7 @@ export default function Index() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-orange-700 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                 E
               </div>
               <div>
@@ -30,7 +30,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
         <div className="container mx-auto px-4 text-center">
           <Badge variant="secondary" className="mb-6 px-4 py-2">
             🚀 Новая платформа для изучения английского
@@ -72,7 +72,7 @@ export default function Index() {
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-2xl flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-2xl flex items-center justify-center">
                     <Icon name="BookOpen" size={32} className="text-primary" />
                   </div>
                   <CardTitle>Грамматика</CardTitle>
@@ -88,8 +88,8 @@ export default function Index() {
 
               <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-2xl flex items-center justify-center">
-                    <Icon name="Brain" size={32} className="text-green-600" />
+                  <div className="w-16 h-16 mx-auto mb-4 bg-emerald-100 rounded-2xl flex items-center justify-center">
+                    <Icon name="Brain" size={32} className="text-emerald-700" />
                   </div>
                   <CardTitle>Лексика</CardTitle>
                   <CardDescription>
@@ -104,8 +104,8 @@ export default function Index() {
 
               <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-2xl flex items-center justify-center">
-                    <Icon name="Mic" size={32} className="text-purple-600" />
+                  <div className="w-16 h-16 mx-auto mb-4 bg-amber-100 rounded-2xl flex items-center justify-center">
+                    <Icon name="Mic" size={32} className="text-orange-700" />
                   </div>
                   <CardTitle>Произношение</CardTitle>
                   <CardDescription>
@@ -121,10 +121,10 @@ export default function Index() {
 
             {/* Exam Preparation Section */}
             <div className="grid md:grid-cols-3 gap-6">
-              <Card className="border-l-4 border-l-blue-500">
+              <Card className="border-l-4 border-l-orange-600">
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Icon name="GraduationCap" size={24} className="mr-2 text-blue-500" />
+                    <Icon name="GraduationCap" size={24} className="mr-2 text-orange-600" />
                     Подготовка к ОГЭ
                   </CardTitle>
                   <CardDescription>
@@ -135,15 +135,15 @@ export default function Index() {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">
                       <span>Аудирование</span>
-                      <span className="text-blue-500">80%</span>
+                      <span className="text-orange-600">80%</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>Чтение</span>
-                      <span className="text-blue-500">92%</span>
+                      <span className="text-orange-600">92%</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>Письмо</span>
-                      <span className="text-blue-500">67%</span>
+                      <span className="text-orange-600">67%</span>
                     </div>
                   </div>
                   <Button className="w-full" variant="outline">
@@ -152,10 +152,10 @@ export default function Index() {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-green-500">
+              <Card className="border-l-4 border-l-emerald-600">
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Icon name="Award" size={24} className="mr-2 text-green-500" />
+                    <Icon name="Award" size={24} className="mr-2 text-emerald-600" />
                     Подготовка к ЕГЭ
                   </CardTitle>
                   <CardDescription>
@@ -166,15 +166,15 @@ export default function Index() {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">
                       <span>Говорение</span>
-                      <span className="text-green-500">74%</span>
+                      <span className="text-emerald-600">74%</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>Лексика и грамматика</span>
-                      <span className="text-green-500">85%</span>
+                      <span className="text-emerald-600">85%</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>Письмо</span>
-                      <span className="text-green-500">70%</span>
+                      <span className="text-emerald-600">70%</span>
                     </div>
                   </div>
                   <Button className="w-full" variant="outline">
@@ -183,10 +183,10 @@ export default function Index() {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-purple-500">
+              <Card className="border-l-4 border-l-amber-600">
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Icon name="Globe" size={24} className="mr-2 text-purple-500" />
+                    <Icon name="Globe" size={24} className="mr-2 text-amber-600" />
                     Зарубежные ВУЗы
                   </CardTitle>
                   <CardDescription>
@@ -197,15 +197,15 @@ export default function Index() {
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm">
                       <span>IELTS Speaking</span>
-                      <span className="text-purple-500">6.5</span>
+                      <span className="text-amber-600">6.5</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>TOEFL Writing</span>
-                      <span className="text-purple-500">24/30</span>
+                      <span className="text-amber-600">24/30</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span>Academic English</span>
-                      <span className="text-purple-500">78%</span>
+                      <span className="text-amber-600">78%</span>
                     </div>
                   </div>
                   <Button className="w-full" variant="outline">
@@ -277,7 +277,7 @@ export default function Index() {
               </Card>
               <Card className="p-6">
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-green-600 mb-2">89%</div>
+                  <div className="text-4xl font-bold text-emerald-700 mb-2">89%</div>
                   <p className="text-muted-foreground">Точность запоминания</p>
                 </div>
               </Card>
