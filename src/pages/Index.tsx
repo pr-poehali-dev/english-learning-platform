@@ -59,12 +59,13 @@ export default function Index() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-16">
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-12">
+          <TabsList className="grid w-full grid-cols-6 mb-12">
             <TabsTrigger value="overview">Обзор</TabsTrigger>
             <TabsTrigger value="grammar">Грамматика</TabsTrigger>
             <TabsTrigger value="vocabulary">Лексика</TabsTrigger>
             <TabsTrigger value="exams">Экзамены</TabsTrigger>
             <TabsTrigger value="pronunciation">Произношение</TabsTrigger>
+            <TabsTrigger value="reference">Справочник</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -456,6 +457,364 @@ export default function Index() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Reference Tab */}
+          <TabsContent value="reference" className="space-y-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Справочные материалы</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Подробные гайды по всем заданиям экзаменов с разборами и стратегиями решения
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-6 mb-12">
+              <Card className="border-l-4 border-l-orange-600">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-orange-600">
+                    <Icon name="FileText" size={24} className="mr-2" />
+                    ОГЭ по английскому
+                  </CardTitle>
+                  <CardDescription>
+                    Все задания основного государственного экзамена
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Задания 1-4: Аудирование</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задания 5-12: Чтение</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задания 13-20: Грамматика</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задание 33: Письмо</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задание 34: Говорение</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-emerald-600">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-emerald-600">
+                    <Icon name="Award" size={24} className="mr-2" />
+                    ЕГЭ по английскому
+                  </CardTitle>
+                  <CardDescription>
+                    Разбор всех заданий единого государственного экзамена
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Задания 1-9: Аудирование</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задания 10-18: Чтение</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задания 19-38: Лексика/Грамматика</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Задания 39-40: Письменная речь</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Устная часть: Задания 1-4</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-amber-600">
+                <CardHeader>
+                  <CardTitle className="flex items-center text-amber-600">
+                    <Icon name="Globe" size={24} className="mr-2" />
+                    Международные экзамены
+                  </CardTitle>
+                  <CardDescription>
+                    IELTS, TOEFL и другие сертификационные экзамены
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>IELTS: Reading, Writing, Listening</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>TOEFL: iBT формат</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Cambridge: FCE, CAE, CPE</span>
+                      <Icon name="ChevronRight" size={16} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Detailed Reference Sections */}
+            <div className="space-y-12">
+              {/* ОГЭ Reference */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl text-orange-600">ОГЭ: Подробный разбор заданий</CardTitle>
+                  <CardDescription>
+                    Структура экзамена, стратегии решения и критерии оценивания
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-8">
+                  {/* Аудирование */}
+                  <div className="border-l-4 border-l-orange-200 pl-6">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <Icon name="Headphones" size={20} className="mr-2 text-orange-600" />
+                      Аудирование (Задания 1-4)
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold mb-2">Что проверяется:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Понимание основного содержания</li>
+                          <li>• Понимание запрашиваемой информации</li>
+                          <li>• Детальное понимание текста</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">Стратегии:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Читайте задания до прослушивания</li>
+                          <li>• Подчеркивайте ключевые слова</li>
+                          <li>• Следите за интонацией говорящего</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Чтение */}
+                  <div className="border-l-4 border-l-orange-200 pl-6">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <Icon name="BookOpen" size={20} className="mr-2 text-orange-600" />
+                      Чтение (Задания 5-12)
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold mb-2">Типы заданий:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Задание 5: Установление соответствия</li>
+                          <li>• Задания 6-11: Выбор правильного ответа</li>
+                          <li>• Задание 12: Определение True/False</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">Полезные навыки:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Сканирование текста</li>
+                          <li>• Поиск синонимов</li>
+                          <li>• Понимание контекста</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Грамматика и лексика */}
+                  <div className="border-l-4 border-l-orange-200 pl-6">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <Icon name="BookMarked" size={20} className="mr-2 text-orange-600" />
+                      Грамматика и лексика (Задания 13-20)
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <h4 className="font-semibold mb-2">Грамматика:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Времена глаголов</li>
+                          <li>• Модальные глаголы</li>
+                          <li>• Пассивный залог</li>
+                          <li>• Условные предложения</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">Словообразование:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Суффиксы и префиксы</li>
+                          <li>• Части речи</li>
+                          <li>• Отрицательные формы</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">Лексика:</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• Фразовые глаголы</li>
+                          <li>• Устойчивые выражения</li>
+                          <li>• Сочетаемость слов</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Письмо */}
+                  <div className="border-l-4 border-l-orange-200 pl-6">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <Icon name="PenTool" size={20} className="mr-2 text-orange-600" />
+                      Письмо (Задание 33)
+                    </h3>
+                    <div className="bg-orange-50 p-4 rounded-lg">
+                      <h4 className="font-semibold mb-2">Структура письма другу:</h4>
+                      <div className="text-sm space-y-2 text-muted-foreground">
+                        <p>1. <strong>Обращение:</strong> Dear Tom, / Hi Tom,</p>
+                        <p>2. <strong>Вступление:</strong> Благодарность за письмо, ссылка на предыдущие контакты</p>
+                        <p>3. <strong>Основная часть:</strong> Ответы на 3 вопроса друга (по 2-3 предложения)</p>
+                        <p>4. <strong>Заключение:</strong> Извинение за окончание письма, ссылка на будущие контакты</p>
+                        <p>5. <strong>Подпись:</strong> Love, / Best wishes, + ваше имя</p>
+                        <p><strong>Объем:</strong> 100-120 слов</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* ЕГЭ Reference */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl text-emerald-600">ЕГЭ: Подробный разбор заданий</CardTitle>
+                  <CardDescription>
+                    Полный анализ структуры экзамена и методы подготовки
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-8">
+                  {/* Письменная речь ЕГЭ */}
+                  <div className="border-l-4 border-l-emerald-200 pl-6">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <Icon name="FileEdit" size={20} className="mr-2 text-emerald-600" />
+                      Письменная речь (Задания 39-40)
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="bg-emerald-50 p-4 rounded-lg">
+                        <h4 className="font-semibold mb-3">Задание 39: Письмо другу</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• <strong>Объем:</strong> 100-140 слов</li>
+                          <li>• <strong>Время:</strong> 20 минут</li>
+                          <li>• <strong>Структура:</strong> Обращение, вступление, ответы на вопросы, вопросы другу, заключение</li>
+                          <li>• <strong>Критерии:</strong> Содержание, организация, языковое оформление</li>
+                        </ul>
+                      </div>
+                      <div className="bg-emerald-50 p-4 rounded-lg">
+                        <h4 className="font-semibold mb-3">Задание 40: Эссе</h4>
+                        <ul className="text-sm space-y-1 text-muted-foreground">
+                          <li>• <strong>Объем:</strong> 200-250 слов</li>
+                          <li>• <strong>Время:</strong> 60 минут</li>
+                          <li>• <strong>Структура:</strong> Введение, два аргумента "за", один аргумент "против", заключение</li>
+                          <li>• <strong>Тип:</strong> Мнение или За/Против</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Устная часть ЕГЭ */}
+                  <div className="border-l-4 border-l-emerald-200 pl-6">
+                    <h3 className="text-xl font-semibold mb-4 flex items-center">
+                      <Icon name="Mic" size={20} className="mr-2 text-emerald-600" />
+                      Устная часть (Задания 1-4)
+                    </h3>
+                    <div className="grid md:grid-cols-4 gap-4">
+                      <div className="bg-emerald-50 p-3 rounded-lg">
+                        <h4 className="font-semibold mb-2">Задание 1</h4>
+                        <p className="text-sm text-muted-foreground">Чтение текста вслух</p>
+                        <p className="text-xs text-muted-foreground mt-1">1.5 мин подготовка + 1.5 мин чтение</p>
+                      </div>
+                      <div className="bg-emerald-50 p-3 rounded-lg">
+                        <h4 className="font-semibold mb-2">Задание 2</h4>
+                        <p className="text-sm text-muted-foreground">Диалог-расспрос (4 вопроса)</p>
+                        <p className="text-xs text-muted-foreground mt-1">40 сек на каждый вопрос</p>
+                      </div>
+                      <div className="bg-emerald-50 p-3 rounded-lg">
+                        <h4 className="font-semibold mb-2">Задание 3</h4>
+                        <p className="text-sm text-muted-foreground">Описание фото</p>
+                        <p className="text-xs text-muted-foreground mt-1">1.5 мин подготовка + 2 мин ответ</p>
+                      </div>
+                      <div className="bg-emerald-50 p-3 rounded-lg">
+                        <h4 className="font-semibold mb-2">Задание 4</h4>
+                        <p className="text-sm text-muted-foreground">Сравнение двух фото</p>
+                        <p className="text-xs text-muted-foreground mt-1">1.5 мин подготовка + 2 мин ответ</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* International Exams Reference */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl text-amber-600">Международные экзамены</CardTitle>
+                  <CardDescription>
+                    IELTS, TOEFL и другие сертификационные экзамены
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-8">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="border-l-4 border-l-amber-200 pl-6">
+                      <h3 className="text-xl font-semibold mb-4 flex items-center text-amber-600">
+                        <Icon name="Globe" size={20} className="mr-2" />
+                        IELTS Academic
+                      </h3>
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold mb-2">Структура экзамена:</h4>
+                          <ul className="text-sm space-y-1 text-muted-foreground">
+                            <li>• <strong>Listening:</strong> 30 мин + 10 мин на перенос ответов</li>
+                            <li>• <strong>Reading:</strong> 60 мин, 3 текста, 40 вопросов</li>
+                            <li>• <strong>Writing:</strong> 60 мин, 2 задания</li>
+                            <li>• <strong>Speaking:</strong> 11-14 мин, интервью с экзаменатором</li>
+                          </ul>
+                        </div>
+                        <div className="bg-amber-50 p-3 rounded-lg">
+                          <h4 className="font-semibold mb-2">Система оценивания:</h4>
+                          <p className="text-sm text-muted-foreground">От 1 до 9 баллов. Большинство университетов требуют 6.5-7.0 общий балл</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-l-4 border-l-amber-200 pl-6">
+                      <h3 className="text-xl font-semibold mb-4 flex items-center text-amber-600">
+                        <Icon name="Monitor" size={20} className="mr-2" />
+                        TOEFL iBT
+                      </h3>
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold mb-2">Структура экзамена:</h4>
+                          <ul className="text-sm space-y-1 text-muted-foreground">
+                            <li>• <strong>Reading:</strong> 54-72 мин, 3-4 текста</li>
+                            <li>• <strong>Listening:</strong> 41-57 мин, лекции и диалоги</li>
+                            <li>• <strong>Speaking:</strong> 17 мин, 4 задания</li>
+                            <li>• <strong>Writing:</strong> 50 мин, 2 задания</li>
+                          </ul>
+                        </div>
+                        <div className="bg-amber-50 p-3 rounded-lg">
+                          <h4 className="font-semibold mb-2">Система оценивания:</h4>
+                          <p className="text-sm text-muted-foreground">От 0 до 120 баллов. Большинство университетов требуют 80-100 баллов</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </main>
