@@ -4,8 +4,135 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import Icon from "@/components/ui/icon";
+import { useState } from "react";
 
 export default function Index() {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [selectedGrammarTopic, setSelectedGrammarTopic] = useState('present-simple');
+  
+  const vocabularyCards = [
+    { word: "Abundant", translation: "Обильный", example: "The region has abundant natural resources.", level: "Advanced" },
+    { word: "Accomplish", translation: "Достигать", example: "She accomplished her goals this year.", level: "Intermediate" },
+    { word: "Acquire", translation: "Приобретать", example: "Students acquire knowledge through practice.", level: "Intermediate" },
+    { word: "Adequate", translation: "Достаточный", example: "We need adequate preparation for the exam.", level: "Intermediate" },
+    { word: "Approach", translation: "Подход", example: "This approach to learning is very effective.", level: "Beginner" }
+  ];
+
+  const grammarTopics = {
+    'present-simple': {
+      title: 'Present Simple',
+      description: 'Настоящее простое время',
+      rules: [
+        'Используется для регулярных действий и фактов',
+        'Утвердительная форма: I/You/We/They + V1, He/She/It + V1+s',
+        'Отрицательная форма: do not/does not + V1',
+        'Вопросительная форма: Do/Does + subject + V1?'
+      ],
+      examples: [
+        'I work every day. (Я работаю каждый день)',
+        'She speaks English fluently. (Она свободно говорит по-английски)',
+        'We don\'t like coffee. (Мы не любим кофе)',
+        'Do you play tennis? (Ты играешь в теннис?)'
+      ]
+    },
+    'past-simple': {
+      title: 'Past Simple',
+      description: 'Прошедшее простое время',
+      rules: [
+        'Используется для действий в прошлом',
+        'Правильные глаголы: V + ed',
+        'Неправильные глаголы: 2-я форма',
+        'Отрицание: did not + V1'
+      ],
+      examples: [
+        'I visited London last year. (Я посетил Лондон в прошлом году)',
+        'She didn\'t come to the party. (Она не пришла на вечеринку)',
+        'Did you see the movie? (Ты смотрел фильм?)'
+      ]
+    },
+    'future-simple': {
+      title: 'Future Simple',
+      description: 'Будущее простое время',
+      rules: [
+        'Используется для будущих действий и планов',
+        'Форма: will + V1',
+        'Отрицание: will not (won\'t) + V1',
+        'Вопрос: Will + subject + V1?'
+      ],
+      examples: [
+        'I will travel tomorrow. (Я буду путешествовать завтра)',
+        'She won\'t be late. (Она не опоздает)',
+        'Will you help me? (Ты мне поможешь?)'
+      ]
+    }
+  };
+
+  const examPreparation = {
+    oge: [
+      { task: 'Аудирование (1-4)', description: 'Понимание основного содержания, запрашиваемой информации', tips: 'Читайте задания заранее, подчеркивайте ключевые слова' },
+      { task: 'Чтение (5-12)', description: 'Понимание текста, поиск информации', tips: 'Ищите синонимы, обращайте внимание на контекст' },
+      { task: 'Грамматика (13-20)', description: 'Времена, словообразование, лексика', tips: 'Изучайте неправильные глаголы, префиксы и суффиксы' },
+      { task: 'Письмо (33)', description: 'Личное письмо другу', tips: 'Следуйте структуре: обращение, благодарность, ответы на вопросы, вопросы, завершение' }
+    ],
+    ege: [
+      { task: 'Аудирование (1-9)', description: 'Понимание основного содержания, детальное понимание', tips: 'Концентрируйтесь на ключевых словах, не паникуйте при незнакомых словах' },
+      { task: 'Чтение (10-18)', description: 'Понимание структурно-смысловых связей', tips: 'Анализируйте логические связи между частями текста' },
+      { task: 'Грамматика и лексика (19-38)', description: 'Грамматические формы, словообразование, лексико-грамматические навыки', tips: 'Практикуйте трансформации, изучайте сочетаемость слов' },
+      { task: 'Письмо (39-40)', description: 'Личное письмо и развернутое письменное высказывание', tips: 'Следите за объемом, структурой и связностью текста' }
+    ]
+  };
+
+  const internationalExams = [
+    { 
+      name: 'IELTS', 
+      description: 'International English Language Testing System',
+      sections: ['Listening (30 min)', 'Reading (60 min)', 'Writing (60 min)', 'Speaking (11-14 min)'],
+      score: 'Баллы: 1-9',
+      target: 'Обучение и работа в англоговорящих странах'
+    },
+    { 
+      name: 'TOEFL', 
+      description: 'Test of English as a Foreign Language',
+      sections: ['Reading (54-72 min)', 'Listening (41-57 min)', 'Speaking (17 min)', 'Writing (50 min)'],
+      score: 'Баллы: 0-120',
+      target: 'Поступление в американские университеты'
+    },
+    { 
+      name: 'Cambridge', 
+      description: 'FCE, CAE, CPE',
+      sections: ['Reading & Use of English', 'Writing', 'Listening', 'Speaking'],
+      score: 'Levels: B2, C1, C2',
+      target: 'Международная сертификация'
+    }
+  ];
+
+  const pronunciationExercises = [
+    {
+      phoneme: '/θ/',
+      description: 'Звук "th" как в think',
+      words: ['think', 'thank', 'three', 'thumb', 'mouth'],
+      tip: 'Кончик языка между зубами, выдох'
+    },
+    {
+      phoneme: '/ð/',
+      description: 'Звук "th" как в this',
+      words: ['this', 'that', 'they', 'mother', 'weather'],
+      tip: 'Кончик языка между зубами, голосовые связки работают'
+    },
+    {
+      phoneme: '/w/',
+      description: 'Звук "w"',
+      words: ['water', 'work', 'window', 'world', 'woman'],
+      tip: 'Округлите губы, как для "у", затем быстро переходите к следующему звуку'
+    },
+    {
+      phoneme: '/r/',
+      description: 'Английский звук "r"',
+      words: ['red', 'right', 'car', 'park', 'start'],
+      tip: 'Кончик языка поднят, не касается неба'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -13,12 +140,12 @@ export default function Index() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-orange-700 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                E
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                🇬🇧
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">English Learning Platform</h1>
-                <p className="text-sm text-muted-foreground">Изучай английский эффективно</p>
+                <h1 className="text-xl font-bold text-foreground">English Mastery Hub</h1>
+                <p className="text-sm text-muted-foreground">Твой путь к совершенному английскому</p>
               </div>
             </div>
             <Button className="bg-primary hover:bg-primary/90">
@@ -30,286 +157,278 @@ export default function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+      <section className="py-16 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
         <div className="container mx-auto px-4 text-center">
-          <Badge variant="secondary" className="mb-6 px-4 py-2">
-            🚀 Новая платформа для изучения английского
+          <Badge variant="secondary" className="mb-6 px-4 py-2 bg-blue-100 text-blue-800">
+            🚀 Комплексная платформа изучения английского языка
           </Badge>
-          <h1 className="text-5xl font-bold text-foreground mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
             Изучай английский<br />
-            <span className="text-primary">с умными методиками</span>
+            <span className="text-primary bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              системно и эффективно
+            </span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Готовься к ОГЭ, ЕГЭ и поступлению в зарубежные университеты. 
-            Изучай грамматику, расширяй словарный запас и практикуй произношение.
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            Грамматика, лексика, произношение и подготовка к экзаменам ОГЭ, ЕГЭ, IELTS, TOEFL. 
+            Все в одном месте с интерактивными упражнениями и персонализированным подходом.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-6">
-              <Icon name="Play" size={20} className="mr-2" />
-              Начать обучение
-            </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
               <Icon name="BookOpen" size={20} className="mr-2" />
-              Попробовать демо
+              Начать изучение
             </Button>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+              <Icon name="Play" size={20} className="mr-2" />
+              Посмотреть демо
+            </Button>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div className="bg-white/70 backdrop-blur-sm rounded-lg p-6 border">
+              <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
+              <div className="text-sm text-muted-foreground">Уроков грамматики</div>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm rounded-lg p-6 border">
+              <div className="text-3xl font-bold text-green-600 mb-2">5000+</div>
+              <div className="text-sm text-muted-foreground">Слов в словаре</div>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm rounded-lg p-6 border">
+              <div className="text-3xl font-bold text-purple-600 mb-2">50+</div>
+              <div className="text-sm text-muted-foreground">Упражнений произношения</div>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm rounded-lg p-6 border">
+              <div className="text-3xl font-bold text-orange-600 mb-2">100%</div>
+              <div className="text-sm text-muted-foreground">Подготовка к экзаменам</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Main Content - Tabs */}
       <main className="container mx-auto px-4 py-16">
-        <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-12">
-            <TabsTrigger value="overview">Обзор</TabsTrigger>
-            <TabsTrigger value="grammar">Грамматика</TabsTrigger>
-            <TabsTrigger value="vocabulary">Лексика</TabsTrigger>
-            <TabsTrigger value="exams">Экзамены</TabsTrigger>
-            <TabsTrigger value="pronunciation">Произношение</TabsTrigger>
-            <TabsTrigger value="reference">Справочник</TabsTrigger>
+        <Tabs defaultValue="grammar" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-12 h-auto">
+            <TabsTrigger value="grammar" className="flex flex-col gap-1 p-4">
+              <Icon name="BookMarked" size={20} />
+              <span>Грамматика</span>
+            </TabsTrigger>
+            <TabsTrigger value="vocabulary" className="flex flex-col gap-1 p-4">
+              <Icon name="Library" size={20} />
+              <span>Лексика</span>
+            </TabsTrigger>
+            <TabsTrigger value="exams" className="flex flex-col gap-1 p-4">
+              <Icon name="GraduationCap" size={20} />
+              <span>Экзамены</span>
+            </TabsTrigger>
+            <TabsTrigger value="international" className="flex flex-col gap-1 p-4">
+              <Icon name="Globe" size={20} />
+              <span>Зарубежные вузы</span>
+            </TabsTrigger>
+            <TabsTrigger value="pronunciation" className="flex flex-col gap-1 p-4">
+              <Icon name="Mic" size={20} />
+              <span>Произношение</span>
+            </TabsTrigger>
           </TabsList>
-
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-12">
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-2xl flex items-center justify-center">
-                    <Icon name="BookOpen" size={32} className="text-primary" />
-                  </div>
-                  <CardTitle>Грамматика</CardTitle>
-                  <CardDescription>
-                    Изучай правила английского языка с интерактивными упражнениями
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Progress value={65} className="mb-4" />
-                  <p className="text-sm text-muted-foreground">Прогресс: 65%</p>
-                </CardContent>
-              </Card>
-
-              <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-emerald-100 rounded-2xl flex items-center justify-center">
-                    <Icon name="Brain" size={32} className="text-emerald-700" />
-                  </div>
-                  <CardTitle>Лексика</CardTitle>
-                  <CardDescription>
-                    Расширяй словарный запас с помощью умных карточек
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Progress value={42} className="mb-4" />
-                  <p className="text-sm text-muted-foreground">Изучено: 840 слов</p>
-                </CardContent>
-              </Card>
-
-              <Card className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-amber-100 rounded-2xl flex items-center justify-center">
-                    <Icon name="Mic" size={32} className="text-orange-700" />
-                  </div>
-                  <CardTitle>Произношение</CardTitle>
-                  <CardDescription>
-                    Практикуй произношение с ИИ-ассистентом
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Progress value={28} className="mb-4" />
-                  <p className="text-sm text-muted-foreground">Точность: 89%</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Exam Preparation Section */}
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="border-l-4 border-l-orange-600">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Icon name="GraduationCap" size={24} className="mr-2 text-orange-600" />
-                    Подготовка к ОГЭ
-                  </CardTitle>
-                  <CardDescription>
-                    Полный курс подготовки к основному государственному экзамену
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span>Аудирование</span>
-                      <span className="text-orange-600">80%</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Чтение</span>
-                      <span className="text-orange-600">92%</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Письмо</span>
-                      <span className="text-orange-600">67%</span>
-                    </div>
-                  </div>
-                  <Button className="w-full" variant="outline">
-                    Продолжить подготовку
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-l-emerald-600">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Icon name="Award" size={24} className="mr-2 text-emerald-600" />
-                    Подготовка к ЕГЭ
-                  </CardTitle>
-                  <CardDescription>
-                    Интенсивная подготовка к единому государственному экзамену
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span>Говорение</span>
-                      <span className="text-emerald-600">74%</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Лексика и грамматика</span>
-                      <span className="text-emerald-600">85%</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Письмо</span>
-                      <span className="text-emerald-600">70%</span>
-                    </div>
-                  </div>
-                  <Button className="w-full" variant="outline">
-                    Продолжить подготовку
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-l-amber-600">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Icon name="Globe" size={24} className="mr-2 text-amber-600" />
-                    Зарубежные ВУЗы
-                  </CardTitle>
-                  <CardDescription>
-                    IELTS, TOEFL и другие международные экзамены
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span>IELTS Speaking</span>
-                      <span className="text-amber-600">6.5</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>TOEFL Writing</span>
-                      <span className="text-amber-600">24/30</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Academic English</span>
-                      <span className="text-amber-600">78%</span>
-                    </div>
-                  </div>
-                  <Button className="w-full" variant="outline">
-                    Продолжить подготовку
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
 
           {/* Grammar Tab */}
           <TabsContent value="grammar" className="space-y-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Изучение грамматики</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Структурированное изучение английской грамматики от базового до продвинутого уровня
+                Систематическое изучение английской грамматики с интерактивными упражнениями и примерами
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { title: "Present Tenses", description: "Настоящие времена", progress: 85, level: "Beginner" },
-                { title: "Past Tenses", description: "Прошедшие времена", progress: 70, level: "Intermediate" },
-                { title: "Future Tenses", description: "Будущие времена", progress: 45, level: "Intermediate" },
-                { title: "Conditionals", description: "Условные предложения", progress: 30, level: "Advanced" },
-                { title: "Passive Voice", description: "Пассивный залог", progress: 60, level: "Intermediate" },
-                { title: "Modal Verbs", description: "Модальные глаголы", progress: 90, level: "Beginner" }
-              ].map((topic, index) => (
-                <Card key={index} className="hover:shadow-md transition-shadow">
+            <div className="grid lg:grid-cols-3 gap-6 mb-8">
+              {Object.entries(grammarTopics).map(([key, topic]) => (
+                <Card 
+                  key={key} 
+                  className={`cursor-pointer transition-all hover:shadow-lg ${selectedGrammarTopic === key ? 'ring-2 ring-primary' : ''}`}
+                  onClick={() => setSelectedGrammarTopic(key)}
+                >
                   <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-lg">{topic.title}</CardTitle>
-                      <Badge variant={topic.level === "Beginner" ? "default" : topic.level === "Intermediate" ? "secondary" : "outline"}>
-                        {topic.level}
-                      </Badge>
-                    </div>
+                    <CardTitle className="flex items-center">
+                      <Icon name="Clock" size={20} className="mr-2 text-primary" />
+                      {topic.title}
+                    </CardTitle>
                     <CardDescription>{topic.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Progress value={topic.progress} className="mb-3" />
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">{topic.progress}% завершено</span>
-                      <Button size="sm">
-                        <Icon name="Play" size={14} className="mr-1" />
-                        Изучать
-                      </Button>
-                    </div>
+                    <Badge variant="secondary">Основы</Badge>
                   </CardContent>
                 </Card>
               ))}
             </div>
+
+            {/* Grammar Details */}
+            <Card className="bg-gradient-to-r from-blue-50 to-indigo-50">
+              <CardHeader>
+                <CardTitle className="text-2xl text-primary">
+                  {grammarTopics[selectedGrammarTopic].title}
+                </CardTitle>
+                <CardDescription className="text-lg">
+                  {grammarTopics[selectedGrammarTopic].description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div>
+                  <h4 className="font-semibold mb-3 flex items-center">
+                    <Icon name="List" size={18} className="mr-2" />
+                    Правила:
+                  </h4>
+                  <ul className="space-y-2">
+                    {grammarTopics[selectedGrammarTopic].rules.map((rule, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm mr-3 mt-0.5 flex-shrink-0">
+                          {index + 1}
+                        </span>
+                        <span>{rule}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold mb-3 flex items-center">
+                    <Icon name="MessageSquare" size={18} className="mr-2" />
+                    Примеры:
+                  </h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {grammarTopics[selectedGrammarTopic].examples.map((example, index) => (
+                      <div key={index} className="bg-white p-4 rounded-lg border">
+                        <p className="text-sm">{example}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <Button className="flex-1">
+                    <Icon name="Play" size={16} className="mr-2" />
+                    Пройти упражнения
+                  </Button>
+                  <Button variant="outline">
+                    <Icon name="FileText" size={16} className="mr-2" />
+                    Скачать конспект
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Vocabulary Tab */}
           <TabsContent value="vocabulary" className="space-y-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Расширение словарного запаса</h2>
+              <h2 className="text-3xl font-bold mb-4">Изучение лексики</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Изучай новые слова с помощью интерактивных карточек и тематических наборов
+                Расширяй словарный запас с помощью интерактивных карточек и систематических упражнений
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <Card className="p-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">2,450</div>
-                  <p className="text-muted-foreground">Слов изучено</p>
-                </div>
+            {/* Vocabulary Stats */}
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <Card>
+                <CardHeader className="text-center">
+                  <CardTitle className="text-green-600">1,247</CardTitle>
+                  <CardDescription>Изученных слов</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Progress value={68} className="w-full" />
+                  <p className="text-sm text-muted-foreground mt-2 text-center">68% до следующего уровня</p>
+                </CardContent>
               </Card>
-              <Card className="p-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-emerald-700 mb-2">89%</div>
-                  <p className="text-muted-foreground">Точность запоминания</p>
-                </div>
+              
+              <Card>
+                <CardHeader className="text-center">
+                  <CardTitle className="text-blue-600">Advanced</CardTitle>
+                  <CardDescription>Текущий уровень</CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <Badge variant="secondary" className="bg-blue-100 text-blue-800">B2 уровень</Badge>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader className="text-center">
+                  <CardTitle className="text-purple-600">15</CardTitle>
+                  <CardDescription>Слов сегодня</CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <Badge variant="secondary" className="bg-purple-100 text-purple-800">Цель: 20 слов</Badge>
+                </CardContent>
               </Card>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { category: "Business English", words: 150, completed: 89, color: "blue" },
-                { category: "Academic Vocabulary", words: 200, completed: 156, color: "green" },
-                { category: "IELTS Vocabulary", words: 300, completed: 240, color: "purple" },
-                { category: "Daily Conversation", words: 120, completed: 120, color: "orange" },
-                { category: "Medical Terms", words: 180, completed: 45, color: "red" },
-                { category: "IT & Technology", words: 250, completed: 198, color: "indigo" }
-              ].map((set, index) => (
-                <Card key={index} className="hover:shadow-md transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <div className={`w-3 h-3 rounded-full bg-${set.color}-500 mr-2`}></div>
-                      {set.category}
-                    </CardTitle>
-                    <CardDescription>{set.words} слов в наборе</CardDescription>
+            {/* Word Card */}
+            <Card className="max-w-2xl mx-auto bg-gradient-to-br from-purple-50 to-pink-50">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Карточка слова</CardTitle>
+                <CardDescription>
+                  {currentWordIndex + 1} из {vocabularyCards.length}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-primary mb-2">
+                    {vocabularyCards[currentWordIndex].word}
+                  </div>
+                  <div className="text-xl text-muted-foreground mb-4">
+                    {vocabularyCards[currentWordIndex].translation}
+                  </div>
+                  <Badge variant="outline" className="mb-4">
+                    {vocabularyCards[currentWordIndex].level}
+                  </Badge>
+                </div>
+                
+                <div className="bg-white p-4 rounded-lg border">
+                  <h4 className="font-semibold mb-2">Пример использования:</h4>
+                  <p className="italic">{vocabularyCards[currentWordIndex].example}</p>
+                </div>
+
+                <div className="flex justify-between">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setCurrentWordIndex(Math.max(0, currentWordIndex - 1))}
+                    disabled={currentWordIndex === 0}
+                  >
+                    <Icon name="ChevronLeft" size={16} className="mr-1" />
+                    Предыдущее
+                  </Button>
+                  
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      <Icon name="X" size={16} className="mr-1" />
+                      Не знаю
+                    </Button>
+                    <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <Icon name="Check" size={16} className="mr-1" />
+                      Знаю
+                    </Button>
+                  </div>
+                  
+                  <Button 
+                    variant="outline"
+                    onClick={() => setCurrentWordIndex(Math.min(vocabularyCards.length - 1, currentWordIndex + 1))}
+                    disabled={currentWordIndex === vocabularyCards.length - 1}
+                  >
+                    Следующее
+                    <Icon name="ChevronRight" size={16} className="ml-1" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Vocabulary Categories */}
+            <div className="grid md:grid-cols-4 gap-4">
+              {['Business', 'Travel', 'Academic', 'Daily Life'].map((category) => (
+                <Card key={category} className="cursor-pointer hover:shadow-lg transition-all">
+                  <CardHeader className="text-center">
+                    <CardTitle className="text-lg">{category}</CardTitle>
+                    <CardDescription>250+ слов</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <Progress value={(set.completed / set.words) * 100} className="mb-3" />
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">{set.completed}/{set.words}</span>
-                      <Button size="sm" variant="outline">
-                        <Icon name="Brain" size={14} className="mr-1" />
-                        Изучать
-                      </Button>
-                    </div>
+                  <CardContent className="text-center">
+                    <Button variant="outline" size="sm">Изучать</Button>
                   </CardContent>
                 </Card>
               ))}
@@ -321,65 +440,199 @@ export default function Index() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Подготовка к экзаменам</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Целенаправленная подготовка к ОГЭ, ЕГЭ и международным экзаменам
+                Комплексная подготовка к ОГЭ и ЕГЭ по английскому языку с разбором всех заданий
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              <Card className="lg:col-span-2">
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* ОГЭ */}
+              <Card className="border-l-4 border-l-orange-500">
                 <CardHeader>
-                  <CardTitle>Ближайшие экзамены</CardTitle>
-                  <CardDescription>Следите за своим прогрессом подготовки</CardDescription>
+                  <CardTitle className="flex items-center text-orange-600">
+                    <Icon name="FileText" size={24} className="mr-2" />
+                    ОГЭ по английскому языку
+                  </CardTitle>
+                  <CardDescription>
+                    Основной государственный экзамен для 9 класса
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { exam: "ЕГЭ по английскому", date: "15 июня 2024", progress: 78, status: "active" },
-                    { exam: "IELTS Academic", date: "22 марта 2024", progress: 65, status: "planning" },
-                    { exam: "TOEFL iBT", date: "10 апреля 2024", progress: 45, status: "planning" }
-                  ].map((exam, index) => (
-                    <div key={index} className="p-4 border rounded-lg">
+                  {examPreparation.oge.map((item, index) => (
+                    <div key={index} className="border rounded-lg p-4 hover:bg-orange-50 transition-colors">
                       <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="font-semibold">{exam.exam}</h4>
-                          <p className="text-sm text-muted-foreground">{exam.date}</p>
-                        </div>
-                        <Badge variant={exam.status === "active" ? "default" : "secondary"}>
-                          {exam.status === "active" ? "Активная подготовка" : "Планируется"}
-                        </Badge>
+                        <h4 className="font-semibold">{item.task}</h4>
+                        <Badge variant="secondary">20 мин</Badge>
                       </div>
-                      <Progress value={exam.progress} className="mb-2" />
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-muted-foreground">Готовность: {exam.progress}%</span>
-                        <Button size="sm">
-                          <Icon name="BookOpen" size={14} className="mr-1" />
-                          Готовиться
-                        </Button>
-                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                      <p className="text-sm bg-orange-100 p-2 rounded text-orange-800">
+                        💡 {item.tips}
+                      </p>
                     </div>
                   ))}
+                  <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                    <Icon name="BookOpen" size={16} className="mr-2" />
+                    Начать подготовку к ОГЭ
+                  </Button>
                 </CardContent>
               </Card>
 
-              <Card>
+              {/* ЕГЭ */}
+              <Card className="border-l-4 border-l-green-500">
                 <CardHeader>
-                  <CardTitle>Статистика</CardTitle>
+                  <CardTitle className="flex items-center text-green-600">
+                    <Icon name="Award" size={24} className="mr-2" />
+                    ЕГЭ по английскому языку
+                  </CardTitle>
+                  <CardDescription>
+                    Единый государственный экзамен для 11 класса
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">156</div>
-                    <p className="text-sm text-muted-foreground">Пробных тестов</p>
-                  </div>
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">82</div>
-                    <p className="text-sm text-muted-foreground">Средний балл</p>
-                  </div>
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">24ч</div>
-                    <p className="text-sm text-muted-foreground">Времени на подготовку</p>
-                  </div>
+                  {examPreparation.ege.map((item, index) => (
+                    <div key={index} className="border rounded-lg p-4 hover:bg-green-50 transition-colors">
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-semibold">{item.task}</h4>
+                        <Badge variant="secondary">40 мин</Badge>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                      <p className="text-sm bg-green-100 p-2 rounded text-green-800">
+                        💡 {item.tips}
+                      </p>
+                    </div>
+                  ))}
+                  <Button className="w-full bg-green-600 hover:bg-green-700">
+                    <Icon name="BookOpen" size={16} className="mr-2" />
+                    Начать подготовку к ЕГЭ
+                  </Button>
                 </CardContent>
               </Card>
             </div>
+
+            {/* Practice Tests */}
+            <Card className="bg-gradient-to-r from-blue-50 to-purple-50">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Пробные тесты</CardTitle>
+                <CardDescription>
+                  Тренируйся на реальных заданиях прошлых лет
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <Card className="text-center">
+                    <CardHeader>
+                      <CardTitle className="text-orange-600">ОГЭ 2024</CardTitle>
+                      <CardDescription>Демоверсия ФИПИ</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button size="sm">Пройти тест</Button>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="text-center">
+                    <CardHeader>
+                      <CardTitle className="text-green-600">ЕГЭ 2024</CardTitle>
+                      <CardDescription>Демоверсия ФИПИ</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button size="sm">Пройти тест</Button>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="text-center">
+                    <CardHeader>
+                      <CardTitle className="text-blue-600">Смешанный</CardTitle>
+                      <CardDescription>Случайные задания</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button size="sm">Пройти тест</Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* International Tab */}
+          <TabsContent value="international" className="space-y-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Поступление в зарубежные университеты</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Подготовка к международным экзаменам IELTS, TOEFL, Cambridge для поступления в зарубежные вузы
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-6">
+              {internationalExams.map((exam, index) => (
+                <Card key={index} className="hover:shadow-lg transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Icon name="Globe" size={20} className="mr-2 text-primary" />
+                      {exam.name}
+                    </CardTitle>
+                    <CardDescription>{exam.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-2">Разделы экзамена:</h4>
+                      <ul className="space-y-1">
+                        {exam.sections.map((section, idx) => (
+                          <li key={idx} className="text-sm flex items-center">
+                            <Icon name="Clock" size={14} className="mr-2 text-muted-foreground" />
+                            {section}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Badge variant="outline">{exam.score}</Badge>
+                      <p className="text-sm text-muted-foreground">{exam.target}</p>
+                    </div>
+                    
+                    <Button className="w-full" variant="outline">
+                      Начать подготовку
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* University Requirements */}
+            <Card className="bg-gradient-to-r from-indigo-50 to-purple-50">
+              <CardHeader>
+                <CardTitle className="text-2xl">Требования университетов</CardTitle>
+                <CardDescription>
+                  Минимальные баллы для поступления в топовые вузы мира
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {[
+                    { uni: 'Harvard', country: 'США', ielts: '7.0', toefl: '100+' },
+                    { uni: 'Oxford', country: 'Великобритания', ielts: '7.5', toefl: '110+' },
+                    { uni: 'ETH Zurich', country: 'Швейцария', ielts: '7.0', toefl: '100+' },
+                    { uni: 'University of Toronto', country: 'Канада', ielts: '6.5', toefl: '100+' }
+                  ].map((item, index) => (
+                    <Card key={index} className="text-center bg-white">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-lg">{item.uni}</CardTitle>
+                        <CardDescription>{item.country}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="text-sm">
+                          <Badge variant="secondary" className="bg-blue-100 text-blue-800 mr-2">
+                            IELTS {item.ielts}
+                          </Badge>
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">
+                            TOEFL {item.toefl}
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Pronunciation Tab */}
@@ -387,469 +640,180 @@ export default function Index() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Практика произношения</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Улучшай произношение с помощью ИИ-ассистента и интерактивных упражнений
+                Изучай правильное произношение английских звуков с интерактивными упражнениями и аудиозаписями
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-6">
-                <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <Icon name="Mic" size={40} className="text-white" />
-                  </div>
-                  <CardTitle>Голосовой тренажер</CardTitle>
-                  <CardDescription>
-                    Практикуй произношение слов и фраз с мгновенной обратной связью
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full mb-4" size="lg">
-                    <Icon name="Play" size={20} className="mr-2" />
-                    Начать тренировку
-                  </Button>
-                  <div className="text-center text-sm text-muted-foreground">
-                    Последняя точность: <span className="font-semibold text-green-600">92%</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="p-6">
-                <CardHeader className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center">
-                    <Icon name="Volume2" size={40} className="text-white" />
-                  </div>
-                  <CardTitle>Фонетические упражнения</CardTitle>
-                  <CardDescription>
-                    Изучай звуки английского языка и их правильное произношение
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full mb-4" size="lg" variant="outline">
-                    <Icon name="BookOpen" size={20} className="mr-2" />
-                    Изучать звуки
-                  </Button>
-                  <div className="text-center text-sm text-muted-foreground">
-                    Изучено звуков: <span className="font-semibold">28/44</span>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Phoneme Practice */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              {pronunciationExercises.map((exercise, index) => (
+                <Card key={index} className="hover:shadow-lg transition-all">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mr-3 text-lg font-bold">
+                        {exercise.phoneme}
+                      </div>
+                      {exercise.description}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-semibold mb-2 flex items-center">
+                        <Icon name="Lightbulb" size={16} className="mr-2 text-blue-600" />
+                        Совет:
+                      </h4>
+                      <p className="text-sm text-blue-800">{exercise.tip}</p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold mb-3">Слова для практики:</h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        {exercise.words.map((word, idx) => (
+                          <Button 
+                            key={idx} 
+                            variant="outline" 
+                            size="sm" 
+                            className="justify-start"
+                          >
+                            <Icon name="Volume2" size={14} className="mr-2" />
+                            {word}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <Button size="sm" className="flex-1">
+                        <Icon name="Mic" size={14} className="mr-2" />
+                        Записать произношение
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Icon name="Play" size={14} className="mr-2" />
+                        Прослушать эталон
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
 
+            {/* Interactive Pronunciation Tool */}
+            <Card className="bg-gradient-to-r from-green-50 to-emerald-50">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Интерактивный тренажер произношения</CardTitle>
+                <CardDescription>
+                  Запишите свое произношение и получите мгновенную обратную связь
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold mb-4">The quick brown fox jumps over the lazy dog</div>
+                  <p className="text-muted-foreground mb-6">
+                    Произнесите это предложение - оно содержит все звуки английского языка
+                  </p>
+                </div>
+                
+                <div className="flex justify-center gap-4">
+                  <Button size="lg" className="bg-red-600 hover:bg-red-700">
+                    <Icon name="Mic" size={20} className="mr-2" />
+                    Начать запись
+                  </Button>
+                  <Button size="lg" variant="outline">
+                    <Icon name="Volume2" size={20} className="mr-2" />
+                    Прослушать образец
+                  </Button>
+                </div>
+                
+                {/* Mock Analysis Results */}
+                <div className="grid md:grid-cols-3 gap-4 mt-8">
+                  <div className="text-center p-4 bg-white rounded-lg border">
+                    <div className="text-2xl font-bold text-green-600 mb-1">85%</div>
+                    <div className="text-sm text-muted-foreground">Точность произношения</div>
+                  </div>
+                  <div className="text-center p-4 bg-white rounded-lg border">
+                    <div className="text-2xl font-bold text-blue-600 mb-1">7.2/10</div>
+                    <div className="text-sm text-muted-foreground">Интонация</div>
+                  </div>
+                  <div className="text-center p-4 bg-white rounded-lg border">
+                    <div className="text-2xl font-bold text-purple-600 mb-1">Good</div>
+                    <div className="text-sm text-muted-foreground">Общая оценка</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Phonetic Alphabet */}
             <Card>
               <CardHeader>
-                <CardTitle>Недавняя активность произношения</CardTitle>
-                <CardDescription>Твой прогресс за последнюю неделю</CardDescription>
+                <CardTitle>Международный фонетический алфавит (IPA)</CardTitle>
+                <CardDescription>
+                  Изучи символы IPA для правильного произношения
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
                   {[
-                    { day: "Пн", score: 85, sessions: 3 },
-                    { day: "Вт", score: 92, sessions: 2 },
-                    { day: "Ср", score: 88, sessions: 4 },
-                    { day: "Чт", score: 94, sessions: 2 },
-                  ].map((day, index) => (
-                    <div key={index} className="text-center p-4 bg-gray-50 rounded-lg">
-                      <div className="font-semibold text-lg">{day.day}</div>
-                      <div className="text-2xl font-bold text-primary">{day.score}%</div>
-                      <div className="text-sm text-muted-foreground">{day.sessions} сессии</div>
-                    </div>
+                    '/i/', '/ɪ/', '/e/', '/æ/', '/ʌ/', '/ɒ/', '/ɔː/', '/ʊ/',
+                    '/uː/', '/ə/', '/ɜː/', '/aɪ/', '/eɪ/', '/ɔɪ/', '/aʊ/', '/əʊ/',
+                    '/p/', '/b/', '/t/', '/d/', '/k/', '/g/', '/f/', '/v/',
+                    '/θ/', '/ð/', '/s/', '/z/', '/ʃ/', '/ʒ/', '/h/', '/m/',
+                    '/n/', '/ŋ/', '/l/', '/r/', '/j/', '/w/', '/tʃ/', '/dʒ/'
+                  ].map((phoneme) => (
+                    <Button
+                      key={phoneme}
+                      variant="outline"
+                      size="sm"
+                      className="font-mono text-lg h-12"
+                    >
+                      {phoneme}
+                    </Button>
                   ))}
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* Reference Tab */}
-          <TabsContent value="reference" className="space-y-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Справочные материалы</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Подробные гайды по всем заданиям экзаменов с разборами и стратегиями решения
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-6 mb-12">
-              <Card className="border-l-4 border-l-orange-600">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-orange-600">
-                    <Icon name="FileText" size={24} className="mr-2" />
-                    ОГЭ по английскому
-                  </CardTitle>
-                  <CardDescription>
-                    Все задания основного государственного экзамена
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Задания 1-4: Аудирование</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задания 5-12: Чтение</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задания 13-20: Грамматика</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задание 33: Письмо</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задание 34: Говорение</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-l-emerald-600">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-emerald-600">
-                    <Icon name="Award" size={24} className="mr-2" />
-                    ЕГЭ по английскому
-                  </CardTitle>
-                  <CardDescription>
-                    Разбор всех заданий единого государственного экзамена
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>Задания 1-9: Аудирование</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задания 10-18: Чтение</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задания 19-38: Лексика/Грамматика</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Задания 39-40: Письменная речь</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Устная часть: Задания 1-4</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-l-4 border-l-amber-600">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-amber-600">
-                    <Icon name="Globe" size={24} className="mr-2" />
-                    Международные экзамены
-                  </CardTitle>
-                  <CardDescription>
-                    IELTS, TOEFL и другие сертификационные экзамены
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>IELTS: Reading, Writing, Listening</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>TOEFL: iBT формат</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Cambridge: FCE, CAE, CPE</span>
-                      <Icon name="ChevronRight" size={16} />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Detailed Reference Sections */}
-            <div className="space-y-12">
-              {/* ОГЭ Reference */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl text-orange-600">ОГЭ: Подробный разбор заданий</CardTitle>
-                  <CardDescription>
-                    Структура экзамена, стратегии решения и критерии оценивания
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                  {/* Аудирование */}
-                  <div className="border-l-4 border-l-orange-200 pl-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Icon name="Headphones" size={20} className="mr-2 text-orange-600" />
-                      Аудирование (Задания 1-4)
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-semibold mb-2">Что проверяется:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Понимание основного содержания</li>
-                          <li>• Понимание запрашиваемой информации</li>
-                          <li>• Детальное понимание текста</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Стратегии:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Читайте задания до прослушивания</li>
-                          <li>• Подчеркивайте ключевые слова</li>
-                          <li>• Следите за интонацией говорящего</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Чтение */}
-                  <div className="border-l-4 border-l-orange-200 pl-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Icon name="BookOpen" size={20} className="mr-2 text-orange-600" />
-                      Чтение (Задания 5-12)
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-semibold mb-2">Типы заданий:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Задание 5: Установление соответствия</li>
-                          <li>• Задания 6-11: Выбор правильного ответа</li>
-                          <li>• Задание 12: Определение True/False</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Полезные навыки:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Сканирование текста</li>
-                          <li>• Поиск синонимов</li>
-                          <li>• Понимание контекста</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Грамматика и лексика */}
-                  <div className="border-l-4 border-l-orange-200 pl-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Icon name="BookMarked" size={20} className="mr-2 text-orange-600" />
-                      Грамматика и лексика (Задания 13-20)
-                    </h3>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <h4 className="font-semibold mb-2">Грамматика:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Времена глаголов</li>
-                          <li>• Модальные глаголы</li>
-                          <li>• Пассивный залог</li>
-                          <li>• Условные предложения</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Словообразование:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Суффиксы и префиксы</li>
-                          <li>• Части речи</li>
-                          <li>• Отрицательные формы</li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold mb-2">Лексика:</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• Фразовые глаголы</li>
-                          <li>• Устойчивые выражения</li>
-                          <li>• Сочетаемость слов</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Письмо */}
-                  <div className="border-l-4 border-l-orange-200 pl-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Icon name="PenTool" size={20} className="mr-2 text-orange-600" />
-                      Письмо (Задание 33)
-                    </h3>
-                    <div className="bg-orange-50 p-4 rounded-lg">
-                      <h4 className="font-semibold mb-2">Структура письма другу:</h4>
-                      <div className="text-sm space-y-2 text-muted-foreground">
-                        <p>1. <strong>Обращение:</strong> Dear Tom, / Hi Tom,</p>
-                        <p>2. <strong>Вступление:</strong> Благодарность за письмо, ссылка на предыдущие контакты</p>
-                        <p>3. <strong>Основная часть:</strong> Ответы на 3 вопроса друга (по 2-3 предложения)</p>
-                        <p>4. <strong>Заключение:</strong> Извинение за окончание письма, ссылка на будущие контакты</p>
-                        <p>5. <strong>Подпись:</strong> Love, / Best wishes, + ваше имя</p>
-                        <p><strong>Объем:</strong> 100-120 слов</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* ЕГЭ Reference */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl text-emerald-600">ЕГЭ: Подробный разбор заданий</CardTitle>
-                  <CardDescription>
-                    Полный анализ структуры экзамена и методы подготовки
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                  {/* Письменная речь ЕГЭ */}
-                  <div className="border-l-4 border-l-emerald-200 pl-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Icon name="FileEdit" size={20} className="mr-2 text-emerald-600" />
-                      Письменная речь (Задания 39-40)
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="bg-emerald-50 p-4 rounded-lg">
-                        <h4 className="font-semibold mb-3">Задание 39: Письмо другу</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• <strong>Объем:</strong> 100-140 слов</li>
-                          <li>• <strong>Время:</strong> 20 минут</li>
-                          <li>• <strong>Структура:</strong> Обращение, вступление, ответы на вопросы, вопросы другу, заключение</li>
-                          <li>• <strong>Критерии:</strong> Содержание, организация, языковое оформление</li>
-                        </ul>
-                      </div>
-                      <div className="bg-emerald-50 p-4 rounded-lg">
-                        <h4 className="font-semibold mb-3">Задание 40: Эссе</h4>
-                        <ul className="text-sm space-y-1 text-muted-foreground">
-                          <li>• <strong>Объем:</strong> 200-250 слов</li>
-                          <li>• <strong>Время:</strong> 60 минут</li>
-                          <li>• <strong>Структура:</strong> Введение, два аргумента "за", один аргумент "против", заключение</li>
-                          <li>• <strong>Тип:</strong> Мнение или За/Против</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Устная часть ЕГЭ */}
-                  <div className="border-l-4 border-l-emerald-200 pl-6">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Icon name="Mic" size={20} className="mr-2 text-emerald-600" />
-                      Устная часть (Задания 1-4)
-                    </h3>
-                    <div className="grid md:grid-cols-4 gap-4">
-                      <div className="bg-emerald-50 p-3 rounded-lg">
-                        <h4 className="font-semibold mb-2">Задание 1</h4>
-                        <p className="text-sm text-muted-foreground">Чтение текста вслух</p>
-                        <p className="text-xs text-muted-foreground mt-1">1.5 мин подготовка + 1.5 мин чтение</p>
-                      </div>
-                      <div className="bg-emerald-50 p-3 rounded-lg">
-                        <h4 className="font-semibold mb-2">Задание 2</h4>
-                        <p className="text-sm text-muted-foreground">Диалог-расспрос (4 вопроса)</p>
-                        <p className="text-xs text-muted-foreground mt-1">40 сек на каждый вопрос</p>
-                      </div>
-                      <div className="bg-emerald-50 p-3 rounded-lg">
-                        <h4 className="font-semibold mb-2">Задание 3</h4>
-                        <p className="text-sm text-muted-foreground">Описание фото</p>
-                        <p className="text-xs text-muted-foreground mt-1">1.5 мин подготовка + 2 мин ответ</p>
-                      </div>
-                      <div className="bg-emerald-50 p-3 rounded-lg">
-                        <h4 className="font-semibold mb-2">Задание 4</h4>
-                        <p className="text-sm text-muted-foreground">Сравнение двух фото</p>
-                        <p className="text-xs text-muted-foreground mt-1">1.5 мин подготовка + 2 мин ответ</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* International Exams Reference */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl text-amber-600">Международные экзамены</CardTitle>
-                  <CardDescription>
-                    IELTS, TOEFL и другие сертификационные экзамены
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="border-l-4 border-l-amber-200 pl-6">
-                      <h3 className="text-xl font-semibold mb-4 flex items-center text-amber-600">
-                        <Icon name="Globe" size={20} className="mr-2" />
-                        IELTS Academic
-                      </h3>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-semibold mb-2">Структура экзамена:</h4>
-                          <ul className="text-sm space-y-1 text-muted-foreground">
-                            <li>• <strong>Listening:</strong> 30 мин + 10 мин на перенос ответов</li>
-                            <li>• <strong>Reading:</strong> 60 мин, 3 текста, 40 вопросов</li>
-                            <li>• <strong>Writing:</strong> 60 мин, 2 задания</li>
-                            <li>• <strong>Speaking:</strong> 11-14 мин, интервью с экзаменатором</li>
-                          </ul>
-                        </div>
-                        <div className="bg-amber-50 p-3 rounded-lg">
-                          <h4 className="font-semibold mb-2">Система оценивания:</h4>
-                          <p className="text-sm text-muted-foreground">От 1 до 9 баллов. Большинство университетов требуют 6.5-7.0 общий балл</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="border-l-4 border-l-amber-200 pl-6">
-                      <h3 className="text-xl font-semibold mb-4 flex items-center text-amber-600">
-                        <Icon name="Monitor" size={20} className="mr-2" />
-                        TOEFL iBT
-                      </h3>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-semibold mb-2">Структура экзамена:</h4>
-                          <ul className="text-sm space-y-1 text-muted-foreground">
-                            <li>• <strong>Reading:</strong> 54-72 мин, 3-4 текста</li>
-                            <li>• <strong>Listening:</strong> 41-57 мин, лекции и диалоги</li>
-                            <li>• <strong>Speaking:</strong> 17 мин, 4 задания</li>
-                            <li>• <strong>Writing:</strong> 50 мин, 2 задания</li>
-                          </ul>
-                        </div>
-                        <div className="bg-amber-50 p-3 rounded-lg">
-                          <h4 className="font-semibold mb-2">Система оценивания:</h4>
-                          <p className="text-sm text-muted-foreground">От 0 до 120 баллов. Большинство университетов требуют 80-100 баллов</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
         </Tabs>
       </main>
 
       {/* Footer */}
-      <footer className="bg-secondary text-secondary-foreground py-12">
+      <footer className="bg-muted py-12 border-t">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-bold text-lg mb-4">English Learning Platform</h3>
-              <p className="text-sm opacity-80">
-                Эффективное изучение английского языка для всех уровней подготовки
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary to-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                  🇬🇧
+                </div>
+                <h3 className="font-bold text-lg">English Mastery Hub</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Комплексная платформа для изучения английского языка с персонализированным подходом
               </p>
             </div>
+            
             <div>
-              <h4 className="font-semibold mb-3">Курсы</h4>
-              <ul className="space-y-2 text-sm opacity-80">
+              <h4 className="font-semibold mb-3">Обучение</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>Грамматика</li>
                 <li>Лексика</li>
                 <li>Произношение</li>
-                <li>Подготовка к экзаменам</li>
+                <li>Упражнения</li>
               </ul>
             </div>
+            
             <div>
               <h4 className="font-semibold mb-3">Экзамены</h4>
-              <ul className="space-y-2 text-sm opacity-80">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>ОГЭ</li>
                 <li>ЕГЭ</li>
                 <li>IELTS</li>
                 <li>TOEFL</li>
               </ul>
             </div>
+            
             <div>
               <h4 className="font-semibold mb-3">Поддержка</h4>
-              <ul className="space-y-2 text-sm opacity-80">
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>Помощь</li>
                 <li>Контакты</li>
                 <li>FAQ</li>
@@ -857,8 +821,9 @@ export default function Index() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm opacity-60">
-            © 2024 English Learning Platform. Все права защищены.
+          
+          <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; 2024 English Mastery Hub. Все права защищены.</p>
           </div>
         </div>
       </footer>
